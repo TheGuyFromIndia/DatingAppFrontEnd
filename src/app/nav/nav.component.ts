@@ -20,13 +20,18 @@ export class NavComponent {
   private router = inject(Router);
   private toaster = inject(ToastrService);
   public username: string | undefined = '';
+  validationErrors: string [] = [];
 
   login() {
     this.accountService.login(this.model).subscribe({
       next: _ => {this.router.navigateByUrl("/members")
         this.username = this.accountService.currentUser()?.username;
       },
-      error: err => this.toaster.error(err.error.title),
+      error: err => {
+        console.log(err);
+        //this.toaster.error(err)
+
+      },
       complete: () =>this.toaster.success("Login Success")
     }  
     )
