@@ -25,7 +25,7 @@ export class NavComponent {
   login() {
     this.accountService.login(this.model).subscribe({
       next: _ => {this.router.navigateByUrl("/members")
-        this.username = this.accountService.currentUser()?.username;
+        this.username = this.accountService.currentUser()?.userName;
       },
       error: err => {
         console.log(err);
