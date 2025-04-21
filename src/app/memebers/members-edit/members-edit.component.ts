@@ -3,14 +3,15 @@ import { Member } from '../../_models/member';
 import { AccountService } from '../../_services/account.service';
 import { MembersService } from '../../_services/members.service';
 import { TabsModule} from 'ngx-bootstrap/tabs'
-import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import { GalleryModule } from 'ng-gallery';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PhotoEditorComponent } from "../photo-editor/photo-editor.component";
 
 @Component({
   selector: 'app-members-edit',
   standalone: true,
-  imports: [TabsModule, GalleryModule, FormsModule],
+  imports: [TabsModule, GalleryModule, FormsModule, PhotoEditorComponent],
   templateUrl: './members-edit.component.html',
   styleUrl: './members-edit.component.css'
 })
@@ -54,5 +55,8 @@ export class MembersEditComponent implements OnInit {
     
   }
 
+  onMemberChange(event: Member){
+    this.member = event;
+  }
 
 }
