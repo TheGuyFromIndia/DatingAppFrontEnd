@@ -1,0 +1,16 @@
+<div class="mb-3 form-floating">
+    <input 
+    [class.is-invalid] = "control.invalid && control.touched"
+    [type]="type()" 
+    class="form-control" 
+    [formControl]="control"
+    >
+    <label for="">{{label()}}</label>
+    <div *ngIf="control.hasError('required')" class="invalid-feedback text-start">Please enter a {{label()}}</div>
+    <div *ngIf="control.hasError('minLength') || control.hasError('maxLength')" class="invalid-feedback text-start">
+        {{control.errors?.['minLength'].requiredLength}} has to be between {{control.errors?.['maxLength'].requiredLength}} and 16 characters long
+    </div>
+    <div *ngIf="control.hasError('isMatching')" class="invalid-feedback text-start">
+        passwords no match
+    </div>
+</div>

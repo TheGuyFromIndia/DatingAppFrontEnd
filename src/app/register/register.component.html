@@ -1,17 +1,40 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
     <h2 class="text-center text-primary">Sign up</h2>
     <hr>
-    <div class="mb-3 form-floating">
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username">
-        <label for="">username</label>
-    </div>
-    <div class="mb-3 form-floating">
-        <input type="password" class="form-control" name="password" [(ngModel)]="model.password">
-        <label for="">password</label>
+
+    <div class="mb-3">
+        <label style="margin-right: 10px;">I am a:</label>
+        <label class="form-check-label" style="padding-right: 5px;">
+            <input type="radio" class="form-check-input" value="male" formControlName="gender" style="padding-right: 18px;">Male
+        </label>
+        <label class="form-check-label" style="padding-right: 5px;">
+            <input type="radio" class="form-check-input" value="female" formControlName="gender" style="padding-right: 18px;">Female
+        </label>
     </div>
 
+    <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'username'">  </app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'knownAs'">  </app-text-input>
+    <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'dateOfBirth'" [maxDate]="maxDate">  </app-date-picker>
+    <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'city'">  </app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'country'">  </app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'password'" [type]="'password'">  </app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'confirm password'" [type]="'password'">  </app-text-input>
+
+    @if(this.valdationErrors && this.valdationErrors.length > 0){
+        <div class="alert alert-danger">
+            <ul>
+                @for (error of valdationErrors; track $index) {
+                    <li>{{error}}</li>
+                }
+            </ul>
+
+        </div>
+
+    }
     <div class="form-grup text-center">
-        <button class="btn btn-succcess me-2" type="submit">Register</button>
+        <button class="btn btn-succcess me-2" type="submit" [disabled]="!this.registerForm.valid">Register</button>
         <button class="btn btn-succcess me-2" (click)="cancel()">Cancel</button>
     </div>
 </form>
+
+<p>{{ registerForm.get('password')?.hasError('minLength')}}</p>

@@ -33,7 +33,6 @@ export class AccountService {
         if(user){
           this.setUser(user);
         }
-
         return user;
       })
     )
